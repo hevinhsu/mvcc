@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 //		readUncommittedTest();
-		readCommittedTest();
+//		readCommittedTest();
 //		repeatableReadTest();
 //		snapshotTestForWriteWriteConflict();
 //		serializableReadWriteTest();
@@ -221,8 +221,8 @@ public class Main {
 
 		c1.set("x", "hey");
 		c1.commit();
-		String c1GetX = c2.get("x");
-		Utils.assertWith(c1GetX.equals(Connection.NO_RECORD_BE_MODIFIED), "c2 can not read other tx operation which is not committed before c2 begin");
+		String getCiModifiedX = c2.get("x");
+		Utils.assertWith(getCiModifiedX.equals(Connection.NO_RECORD_BE_MODIFIED), "c2 can not read other tx operation which is not committed before c2 begin");
 		String c2Commit = c2.commit();
 		Utils.assertWith(c2Commit.equals("read-write conflict"), "c2 occur read-write conflict because c1 is committed after c2 begin");
 

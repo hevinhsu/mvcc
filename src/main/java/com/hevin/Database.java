@@ -171,10 +171,10 @@ public class Database {
 		// focus on deleted operation before this tx start
 		if (value.getTxEndId() > 0  // value is be deleted
 				&& value.getTxEndId() < tx.getId()  // delete operation is before than this tx begin
-				&& transactions.get(value.getTxEndId()).getState() == TransactionState.Committed
 				// this delete operation is committed.
-				&& !tx.getInprogress().contains(
-				value.getTxEndId())  // delete operation is committed(previous condition) before than this tx begin.
+				&& transactions.get(value.getTxEndId()).getState() == TransactionState.Committed
+				// delete operation is committed(previous condition) before than this tx begin.
+				&& !tx.getInprogress().contains(value.getTxEndId())
 		) {
 			return false;
 		}
