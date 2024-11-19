@@ -189,7 +189,8 @@ Snapshot、Serializable isolation level 在 commit 階段，會檢查是否有�
 
 ```java
 public boolean hasOverlapTx(Transaction tx,
-			// conflictFn 為深入檢查資料是否同步的 method，這部分會在個別的 isolation level 中說明
+			// conflictFn 為深入檢查資料是否同步的 method，
+                        // 這部分會在個別的 isolation level 中說明
 			BiFunction<Transaction, Transaction, Boolean> conflictFn) {
 
     // 檢查 tx 開始以後，有沒有其他 tx 也在運行
@@ -204,7 +205,8 @@ public boolean hasOverlapTx(Transaction tx,
         // 有衝突的情況，是當其他資料有 commit 的情況下，才會有衝突
         // 所以檢查 overlap 以外，還要確認這些 tx 是不是有先 commit
         if (inProgressTx.getState() == TransactionState.Committed) {
-            if (conflictFn.apply(tx, inProgressTx)) { // 發現有進行中的 tx 比自己先 commit，透過 conflictFn 進一步檢查資料是否有衝突
+            // 發現有進行中的 tx 比自己先 commit，透過 conflictFn 進一步檢查資料是否有衝突
+            if (conflictFn.apply(tx, inProgressTx)) {
                 return true;
             }
         }
