@@ -158,7 +158,7 @@ public class Database {
 
 		// ignore value is in progress before this tx begin
 		// It means upsert operation is not committed before this tx begin.
-		if (tx.getInprogress().contains(value.getTxStartId())) {
+		if (tx.getInProgress().contains(value.getTxStartId())) {
 			return false;
 		}
 
@@ -174,7 +174,7 @@ public class Database {
 				// this delete operation is committed.
 				&& transactions.get(value.getTxEndId()).getState() == TransactionState.Committed
 				// delete operation is committed(previous condition) before than this tx begin.
-				&& !tx.getInprogress().contains(value.getTxEndId())
+				&& !tx.getInProgress().contains(value.getTxEndId())
 		) {
 			return false;
 		}
@@ -221,7 +221,7 @@ public class Database {
 			BiFunction<Transaction, Transaction, Boolean> conflictFn) {
 
 		// check overlap occur in inprogress(tx before current tx and still inprogress) txs
-		for (Integer inprogressId : tx.getInprogress()) {
+		for (Integer inprogressId : tx.getInProgress()) {
 			Transaction inprogressTx = transactions.get(inprogressId);
 
 			// no overlap tx

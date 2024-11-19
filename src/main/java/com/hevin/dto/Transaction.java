@@ -11,7 +11,7 @@ public class Transaction {
 	private final IsolationLevel isolationLevel;
 	private final int id;
 	private TransactionState state;
-	private final Set<Integer> inprogress;	// for handle RepeatableRead, Snapshot, Serializable isolation level
+	private final Set<Integer> inProgress;	// for handle RepeatableRead, Snapshot, Serializable isolation level
 	private final Set<String> writeSet = new HashSet<>();
 	private final Set<String> readSet = new HashSet<>();
 
@@ -22,11 +22,11 @@ public class Transaction {
 	}
 
 	public Transaction(IsolationLevel isolationLevel, int id, TransactionState state,
-			Set<Integer> inprogress) {
+			Set<Integer> inProgress) {
 		this.isolationLevel = isolationLevel;
 		this.id = id;
 		this.state = state;
-		this.inprogress = inprogress;
+		this.inProgress = inProgress;
 	}
 
 	public int getId() {
@@ -41,8 +41,8 @@ public class Transaction {
 		this.state = state;
 	}
 
-	public Set<Integer> getInprogress() {
-		return inprogress;
+	public Set<Integer> getInProgress() {
+		return inProgress;
 	}
 
 	public Set<String> getWriteSet() {
